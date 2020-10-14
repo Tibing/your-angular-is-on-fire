@@ -7,8 +7,8 @@
   <app-todo-item
     *ngFor="let item of items$ | async"
     [item]="item"
-    (save)="save($event)"
-    (toggleComplete)="toggleDone($event)"
+    (save)="updateMessage($event)"
+    (toggleComplete)="toggleCompleted($event)"
     (delete)="delete($event)">
   </app-todo-item>
 </nb-card>

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestoreCollection } from '@angular/fire/firestore/collection/collection';
+import { DocumentChangeAction } from '@angular/fire/firestore/interfaces';
 
 import { Todo } from './todo';
-import { TodoService } from './todo.service';
 
 @Component({
   selector: 'app-todos',
@@ -11,24 +13,32 @@ import { TodoService } from './todo.service';
 })
 export class TodosComponent {
 
-  items$: Observable<Todo[]> = this.todoService.items$;
+  // private collection: AngularFirestoreCollection<Todo> = this.firestore.collection('todos');
+  // items$: Observable<DocumentChangeAction<Todo>[]> = this.collection.snapshotChanges();
+  items$ = of([]);
 
-  constructor(private todoService: TodoService) {
+  constructor(private firestore: AngularFirestore) {
   }
 
   add(message: string) {
-    this.todoService.add(message);
+    // this.collection.add({ message });
   }
 
-  save([item, message]: [Todo, string]) {
-    this.todoService.updateMessage(item, message);
+  updateMessage([item, message]: [DocumentChangeAction<Todo>, string]) {
+    // this.collection
+    //   .doc(item.payload.doc.id)
+    //   .set({ message }, { merge: true });
   }
 
-  toggleDone([item, done]: [Todo, boolean]) {
-    this.todoService.toggleDone(item, done);
+  toggleCompleted([item, completed]: [DocumentChangeAction<Todo>, boolean]) {
+    // this.collection
+    //   .doc(item.payload.doc.id)
+    //   .set({ completed }, { merge: true });
   }
 
-  delete(item) {
-    this.todoService.delete(item);
+  delete(item: DocumentChangeAction<Todo>) {
+    // this.collection
+    //   .doc(item.payload.doc.id)
+    //   .delete();
   }
 }

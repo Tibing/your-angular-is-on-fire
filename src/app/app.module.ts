@@ -5,7 +5,8 @@ import {
   NbButtonModule,
   NbCardModule,
   NbCheckboxModule,
-  NbIconModule, NbInputModule,
+  NbIconModule,
+  NbInputModule,
   NbLayoutModule,
   NbListModule,
   NbOptionModule,
@@ -13,11 +14,14 @@ import {
   NbThemeModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodosComponent } from './todo/todos.component';
 import { TodoItemComponent } from './todo/todo-item/todo-item.component';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,9 @@ import { TodoItemComponent } from './todo/todo-item/todo-item.component';
     NbIconModule,
     NbButtonModule,
     NbInputModule,
+
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

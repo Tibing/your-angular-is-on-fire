@@ -1,40 +1,46 @@
 import { Component, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild } from '@angular/core';
 import { Todo } from '../todo';
+import { DocumentChangeAction } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-todo-item',
   templateUrl: './todo-item.component.html',
-  styleUrls: ['./todo-item.component.scss']
+  styleUrls: ['./todo-item.component.scss'],
 })
 export class TodoItemComponent {
 
   @ViewChild('input', { static: false }) input: ElementRef;
+  @Input() item: DocumentChangeAction<Todo>;
+  @Output() save = new EventEmitter<[DocumentChangeAction<Todo>, string]>();
+  @Output() delete = new EventEmitter<DocumentChangeAction<Todo>>();
+  @Output() toggleComplete = new EventEmitter<[DocumentChangeAction<Todo>, boolean]>();
+
+  inEdit = false;
+
   @HostBinding('class.completed')
   get completed() {
-    return this.item.completed;
+    return this.data.completed;
   }
 
-  @Input() item: Todo;
-  @Output() save = new EventEmitter<[Todo, string]>();
-  @Output() delete = new EventEmitter<Todo>();
-  @Output() toggleComplete = new EventEmitter<[Todo, boolean]>();
+  get data(): Todo {
+    return this.item.payload.doc.data();
+  }
 
-  onEdit(item: Todo) {
-    item.inEdit = true;
+  onEdit() {
+    this.inEdit = true;
     setTimeout(() => this.input.nativeElement.focus());
   }
 
-  onSave(item: Todo, message: string) {
-    item.inEdit = false;
-    this.save.emit([item, message]);
+  onSave(message: string) {
+    this.inEdit = false;
+    this.save.emit([this.item, message]);
   }
 
-  onDelete(item: Todo) {
-    this.delete.emit(item);
+  onDelete() {
+    this.delete.emit(this.item);
   }
 
-  onToggleComplete(item: Todo, completed: boolean) {
-    this.toggleComplete.emit([item, completed]);
+  onToggleComplete(completed: boolean) {
+    this.toggleComplete.emit([this.item, completed]);
   }
-
 }

@@ -1,30 +1,30 @@
-<nb-checkbox [attr.disabled]="item.inEdit" [checked]="item.completed" (checkedChange)="onToggleComplete(item, $event)">
+<nb-checkbox [attr.disabled]="inEdit" [checked]="data.completed" (checkedChange)="onToggleComplete($event)">
 </nb-checkbox>
 
-<ng-container *ngIf="!item.inEdit">{{ item.message }}</ng-container>
+<ng-container *ngIf="!inEdit">{{ data.message }}</ng-container>
 
 <input nbInput
        fullWidth
-       [hidden]="!item.inEdit"
-       [value]="item.message"
+       [hidden]="!inEdit"
+       [value]="data.message"
        fieldSize="small"
        shape="rectangle"
        #input
-       (keyup.enter)="onSave(item, input.value)" />
+       (keyup.enter)="onSave(input.value)" />
 
 <div class="actions">
 
-  <ng-container *ngIf="item.inEdit && item.completed; else viewMode">
-    <button nbButton status="success" ghost size="tiny" (click)="onSave(item, input.value)">
+  <ng-container *ngIf="inEdit && data.completed; else viewMode">
+    <button nbButton status="success" ghost size="tiny" (click)="onSave(input.value)">
       <nb-icon icon="save-outline"></nb-icon>
     </button>
   </ng-container>
 
   <ng-template #viewMode>
-    <button nbButton status="info" ghost size="tiny" (click)="onEdit(item)">
+    <button nbButton status="info" ghost size="tiny" (click)="onEdit()">
       <nb-icon icon="edit-2-outline"></nb-icon>
     </button>
-    <button nbButton status="danger" ghost size="tiny" (click)="onDelete(item)">
+    <button nbButton status="danger" ghost size="tiny" (click)="onDelete()">
       <nb-icon icon="trash-2-outline"></nb-icon>
     </button>
   </ng-template>
