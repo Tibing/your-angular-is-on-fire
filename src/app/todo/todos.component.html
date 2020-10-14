@@ -1,5 +1,24 @@
 <nb-card>
+  <nb-card-body class="header">
+    <nb-user
+      *ngIf="user$ | async as user"
+      [name]="user.displayName"
+      [picture]="user.photoURL"
+      [title]="user.email"
+    ></nb-user>
+
+    <button
+      nbButton
+      size="tiny"
+      ghost
+      (click)="logout()"
+    >Logout</button>
+  </nb-card-body>
+</nb-card>
+
+<nb-card>
   <nb-card-header>
+
     <input nbInput fieldSize="small" fullWidth placeholder="Add item" #input
            (keyup.enter)="add(input.value); input.value = ''"/>
   </nb-card-header>

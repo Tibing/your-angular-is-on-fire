@@ -11,7 +11,7 @@ import {
   NbListModule,
   NbOptionModule,
   NbSelectModule,
-  NbThemeModule,
+  NbThemeModule, NbUserModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AngularFireModule } from '@angular/fire';
@@ -46,6 +46,7 @@ import { LoginComponent } from './login/login.component';
     NbIconModule,
     NbButtonModule,
     NbInputModule,
+    NbUserModule,
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
