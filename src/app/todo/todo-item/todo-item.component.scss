@@ -1,0 +1,27 @@
+@import '../../../themes';
+
+:host {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-weight: nb-theme(text-caption-2-font-weight);
+  font-size: nb-theme(text-caption-2-font-size);
+  padding: 1rem;
+  border-bottom: 1px solid #edf1f7;
+}
+
+:host.completed {
+  text-decoration: line-through;
+  color: nb-theme(text-hint-color);
+}
+
+.actions {
+  padding-left: 1rem;
+  margin-left: auto;
+}
+
+
+nb-checkbox {
+  height: 1.25rem;
+  margin-right: 1rem;
+}

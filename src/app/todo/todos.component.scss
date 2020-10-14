@@ -1,0 +1,22 @@
+@import '../../themes';
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nb-card {
+  width: 500px;
+}
+
+nb-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.no-items {
+  color: nb-theme(text-hint-color);
+  justify-content: center;
+}

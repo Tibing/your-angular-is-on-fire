@@ -1,0 +1,14 @@
+<nb-card>
+  <nb-card-header>
+    <input nbInput fieldSize="small" fullWidth placeholder="Add item" #input
+           (keyup.enter)="add(input.value); input.value = ''"/>
+  </nb-card-header>
+
+  <app-todo-item
+    *ngFor="let item of items$ | async"
+    [item]="item"
+    (save)="save($event)"
+    (toggleComplete)="toggleDone($event)"
+    (delete)="delete($event)">
+  </app-todo-item>
+</nb-card>
