@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { NEVER, Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFirestoreCollection } from '@angular/fire/firestore/collection/collection';
 import { DocumentChangeAction } from '@angular/fire/firestore/interfaces';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { User } from 'firebase';
+import { Router } from '@angular/router';
+import { switchMap, take } from 'rxjs/operators';
 
 import { Todo } from './todo';
 
@@ -13,15 +17,36 @@ import { Todo } from './todo';
 })
 export class TodosComponent {
 
-  private collection: AngularFirestoreCollection<Todo> = this.firestore.collection('todos');
+  user$: Observable<User> = this.fauth.authState;
 
-  items$: Observable<DocumentChangeAction<Todo>[]> = this.collection.snapshotChanges();
+  collection: AngularFirestoreCollection<Todo> = this.firestore.collection<Todo>('todos');
 
-  constructor(private firestore: AngularFirestore) {
+  items$: Observable<DocumentChangeAction<Todo>[]> = this.user$.pipe(
+    switchMap((user: User) => {
+      if (!user) {
+        return NEVER;
+      }
+
+      return this.firestore
+        .collection<Todo>(
+          'todos',
+          ref => ref.where('userId', '==', user.uid),
+        )
+        .snapshotChanges();
+    }),
+  );
+
+  constructor(private firestore: AngularFirestore,
+              private fauth: AngularFireAuth,
+              private router: Router) {
   }
 
   add(message: string) {
-    this.collection.add({ message });
+    this.user$
+      .pipe(take(1))
+      .subscribe((user: User) => {
+        this.collection.add({ message, userId: user.uid });
+      });
   }
 
   updateMessage([item, message]: [DocumentChangeAction<Todo>, string]) {
@@ -40,5 +65,10 @@ export class TodosComponent {
     this.collection
       .doc(item.payload.doc.id)
       .delete();
+  }
+
+  async logout() {
+    await this.fauth.signOut();
+    this.router.navigateByUrl('login');
   }
 }

@@ -1,4 +1,5 @@
 export interface Todo {
   completed?: boolean;
-  message?: string;
+  message: string;
+  userId: string;
 }

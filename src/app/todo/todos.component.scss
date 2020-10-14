@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 nb-card {
@@ -19,4 +20,10 @@ nb-card-footer {
 .no-items {
   color: nb-theme(text-hint-color);
   justify-content: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
