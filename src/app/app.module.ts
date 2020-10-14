@@ -22,10 +22,12 @@ import { AppComponent } from './app.component';
 import { TodosComponent } from './todo/todos.component';
 import { TodoItemComponent } from './todo/todo-item/todo-item.component';
 import { environment } from '../environments/environment';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     TodosComponent,
     TodoItemComponent,
   ],
