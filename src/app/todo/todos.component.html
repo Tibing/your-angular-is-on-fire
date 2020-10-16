@@ -1,20 +1,24 @@
-<nb-card>
-  <nb-card-body class="header">
-    <nb-user
-      *ngIf="user$ | async as user"
-      [name]="user.displayName"
-      [picture]="user.photoURL"
-      [title]="user.email"
-    ></nb-user>
+<ng-container>
 
-    <button
-      nbButton
-      size="tiny"
-      ghost
-      (click)="logout()"
-    >Logout</button>
-  </nb-card-body>
-</nb-card>
+<!--  <nb-card>-->
+<!--    <nb-card-body class="header">-->
+<!--      <nb-user-->
+<!--        *ngIf="user$ | async as user"-->
+<!--        [name]="user.displayName"-->
+<!--        [picture]="user.photoURL"-->
+<!--        [title]="user.email"-->
+<!--      ></nb-user>-->
+
+<!--      <button-->
+<!--        nbButton-->
+<!--        size="tiny"-->
+<!--        ghost-->
+<!--        (click)="logout()"-->
+<!--      >Logout</button>-->
+<!--    </nb-card-body>-->
+<!--  </nb-card>-->
+
+</ng-container>
 
 <nb-card>
   <nb-card-header>

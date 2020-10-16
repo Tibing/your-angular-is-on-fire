@@ -11,17 +11,15 @@ import {
   NbListModule,
   NbOptionModule,
   NbSelectModule,
-  NbThemeModule, NbUserModule,
+  NbThemeModule,
+  NbUserModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodosComponent } from './todo/todos.component';
 import { TodoItemComponent } from './todo/todo-item/todo-item.component';
-import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
@@ -47,9 +45,6 @@ import { LoginComponent } from './login/login.component';
     NbButtonModule,
     NbInputModule,
     NbUserModule,
-
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
